@@ -1,0 +1,12 @@
+{
+    "name": "jose/address-book",
+    "require": {
+        "stormpath/sdk": "^1.13"
+    },
+    "authors": [
+        {
+            "name": "jose.gorchs",
+            "email": "jose.gorchs@3scale.net"
+        }
+    ]
+}

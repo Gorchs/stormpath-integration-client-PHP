@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="3scale_idp.css">
+<style type="">
+	h1
+	{
+		text-decoration: bold;
+		font-size: 17px;
+	}
+
+	body
+	 { 
+	 margin: auto;
+	 }
+
+	 form
+	 {
+	 	margin:auto;
+	 }
+
+	label textarea{
+	 vertical-align: middle;
+	}
+
+
+	#oauth_flow
+	{
+		border: 1px solid #6e6e6e; 
+	 	margin-left:50px; 
+	 	padding:0; 
+	 	display:block; 
+	 	width:1024px; 
+	 	min-height:750px; 
+	}
+	 
+	 #newapp-authentication 
+	 { 
+		 width:49%; 
+		 height:255px;
+		 border: 1px solid #6e6e6e; 
+		  
+		 display:block; 
+		 float:left;
+		 padding:4px;
+
+	 }
+	 
+	 #newapp-authorization 
+	 { 
+		 width:49%; 
+		 height:475px;
+		 border: 1px solid #6e6e6e;  
+		 
+		 display:block; 
+		 float:left;
+		 padding:4px;
+	 }
+
+	 #address-book-authorization 
+	 { 
+	 	width:49%; 
+	 	height:475px;
+	 	border: 1px solid #6e6e6e; 
+	 	
+	 	display:block; 
+	 	float:right; 
+	 	padding:4px;
+	 }
+
+	  #stormpath-authentication 
+	 { 
+		 width:49%; 
+		 height:255px;
+		 border: 1px solid #6e6e6e; 
+		 
+		 display:block;
+		 float:right; 
+		 padding:4px;
+	 }
+
+	 #get_token_result
+	 {
+	 	width:70%;
+	 	height:1em;
+	 	float:right;
+	 }
+
+	 #token_value
+	 {
+	 	width:70%;
+	 	float:right;	
+	 }
+
+	 #get_token_details
+	 {
+	 	width:70%;
+	 	height:1em;
+	 	float:right;	
+	 }
+
+	 #form_wrapper
+	 {
+	 	width:100%;
+	 }
+
+	 #user_credentials
+	 {
+	 	float:left;
+	 	min-width:48%;
+	 }
+
+	 #grant_type
+	 {
+	 	float:left;
+	 	min-width:45%;
+	 }
+
+
+	#authenticate, #authorize
+	{
+		padding: 10px 15px;
+	    background: #4479BA;
+	    color: #FFF;
+		-webkit-border-radius: 4px;
+	    -moz-border-radius: 4px;
+	    border-radius: 4px;
+	    border: solid 1px #20538D;
+	    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+	    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+	    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+	    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+	}
+
+	#authorize
+	{
+		width:180px;
+	}
+
+	#authenticate:hover, #authenticate:focus {
+	    background: #356094;
+	    border: solid 1px #2A4E77;
+	    text-decoration: none;
+	}
+
+	#access_token
+	{
+		width:98%;
+	}
+
+	#authorize:hover, #authorize:focus {
+	    background: #356094;
+	    border: solid 1px #2A4E77;
+	    text-decoration: none;
+	}
+
+	#resources
+	{
+		width:98%;
+	}
+
+
+	#settings
+	{
+		border: 1px solid black; 
+	 	margin-left:50px; 
+	 	margin-top: 5px;
+	 	padding:5px; 
+	 	display:block; 
+	 	width:500px; 
+	 	min-height:200px;
+	}
+
+	.step
+	{
+		color: orange;
+	}
+</style>
+<meta charset="utf-8"/>
+<title>3scale-IDP Integration</title>
+
+<script type="text/javascript">
+  function draw()
+  {
+    var canvas = document.getElementById('3scale-stormpath');
+    if (canvas.getContext){var ctx = canvas.getContext('2d'); }
+  }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>function get_token()
+{
+		var form_username = $("#username").val();
+		var form_password = $("#password").val();
+		$.get('request_token.php', { username:form_username,password:form_password}, function(data){
+        $("#token_value").val(data);});
+};
+</script>
+
+<script>function access_resources()
+{
+		var form_access_token = $("#access_token").val();
+		$.get('authorize.php', { access_token:form_access_token}, function(data){
+        $("#resources").val(data);});
+};
+</script>
+
+
+</head>
+
+<body id="3scale-stormpath" onload="draw();">
+	<div id="oauth_flow">
+		<div id="newapp-authentication">
+			<h1><span class="step">1.</span>Client Authentication Request</h1>
+			<hr>
+			<form   name="register">
+				<div id="form_wrapper">
+					<div id="user_credentials">
+				    <h3>RO CREDENTIALS</h3>
+					    <p><input type="text" value="" placeholder="Stormpath Username" id="username" name="username"/></p>
+					    <p><input type="password" value="" placeholder="Stormpath Password" id="password" name="password"/></p>
+					    <input type="hidden" value="a268377f" id="app_id"/>
+				    </div>
+				    
+				    <div id="grant_type">
+				    <h3 >GRANT TYPE</h3>
+					    <p><input type="radio" name="grant" value="password"> Password<br></p>
+		  				<p><input type="radio" name="grant" value="user_credentials"> User Credentials<br></p>
+	  				</div>
+					
+	  			</div>
+			    <div id="get_token_button">
+			    	<p><input name="authenticate" id="authenticate" onclick="get_token();" value="Authenticate (Get Token)"></p>
+			    </div>
+			</form>
+		</div>
+
+		<div id="stormpath-authentication">
+			<h1><span class="step">2.</span>Authorization Server Response</h1>
+			<hr>
+			<h3>AS RESPONSE</h3>
+			<!--<p><label>Get Token Result: <textarea id="get_token_result"></textarea></label></p>-->
+			<p><label>Access Token: <textarea id="token_value" placeholder="<Access Token returned by AS>" rows="8"></textarea></label></p>
+			<!--<p><label>Response details: <textarea id="get_token_details"></textarea></label></p>-->
+		</div>
+		
+		<div id="newapp-authorization">
+			<h1><span class="step">3.</span>Request To Access the Resources</h1>
+			<hr>
+			<form action="authorize.php" method="get" name="register">
+			    <h3>ACCESS TOKEN RETURNED BY AS</h3>
+			    <p><textarea value="" placeholder="<Copy-Paste here the Access Token returned by AS>" id="access_token" rows="8"/></textarea></p>
+			    <p><input name="authorize" id="authorize" onclick="access_resources();" value="Authorize (Access Resources)"></p>
+		</div>
+
+		<div id="address-book-authorization">
+			<h1><span class="step">4.</span>Resources Server Response</h1>
+			<hr>
+			<h3>RESOURCES</h3>
+			<p><textarea value="" placeholder="<Resources (Contacts) returned by the RS (backend API)>" id="resources" rows="20"/></textarea></p>
+		</div>
+	</div>
+
+	<div id="settings">
+		<div id="3scale-settings">
+			<h1>3scale</h1>
+			<hr>
+			    <h3>SETTINGS</h3>
+			    <p><label>Service ID:<textarea value="" placeholder="service_id" id="service_id" rows="1"/>2555417729973</textarea></label></p>
+			    <p><label>APP ID:<textarea value="" placeholder="app_id" id="app_id" rows="1"/>a268377f</textarea></label></p>
+		</div>
+	</div>
+</body>
+
+</html>
