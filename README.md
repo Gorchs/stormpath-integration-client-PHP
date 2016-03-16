@@ -8,6 +8,7 @@ It is not intended for a production environment. It's main purpose is to be simp
 * 3scale gateway manages the data workflow, controlling and monitoring the requests to the RS
 
 Besides this Client, you will also need:
+
 1. the RS app. You can find the Github repo here: <link to the RS app>
 2. Access to a working Nginx server configured to manage the oAuth dance. You can test one here and the tutorial will tell you what are the chnages to apply to your Nginx config files.
 
