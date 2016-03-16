@@ -13,13 +13,13 @@ $token=get_token_through_3scale($username,$password, $app_id);
 echo $token;
 /*if we use the get_token_through_3scale there is no need to call the store token, as Nginx will also store the token in the same call */
 /*if we use the get_token_from_stormpath then we shoudl comment out the lien below so that the token is stored */
-/*store_access_token_3scale("962f405ac06b3ecf42623edce6cb1a92","2555417729973","a268377f",$token);*/
+/*store_access_token_3scale("<your 3scale provider id here>","2555417729973","a268377f",$token);*/
 
 
 
 function get_token_through_3scale($username,$password, $app_id)
 {
-	$sURL = "http://localhost/oauth/token?provider_key=962f405ac06b3ecf42623edce6cb1a92";
+	$sURL = "http://localhost/oauth/token?provider_key=<your 3scale provider id here>";
 	$sPD = "grant_type=password&username=".$username."&password=".$password."&app_id=".$app_id; // The POST Data
 	$aHTTP = array
 	  (
