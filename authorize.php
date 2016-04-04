@@ -9,7 +9,8 @@ echo json_encode($addresses, JSON_PRETTY_PRINT);
 function authorize($access_token)
 {
 
-	$sURL = "http://localhost/api/contacts.json";
+	//$sURL = "http://localhost/api/contacts.json";
+	$sURL = "http://abastorm.heroku.com/api/contacts.json";
 	$sPD = "";
 	$aHTTP = array
 	  (

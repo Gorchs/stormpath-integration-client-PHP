@@ -9,7 +9,7 @@ $app_id="a268377f";
 $api_key=$keys["apiKey.id"];
 $api_secret=$keys["apiKey.secret"];
 /*$token=get_token_from_stormpath($username,$password, $api_key,$api_secret);*/
-$token=get_token_through_3scale($username,$password, $app_id);
+$token=get_token_from_stormpath($username,$password, $app_id);
 echo $token;
 /*if we use the get_token_through_3scale there is no need to call the store token, as Nginx will also store the token in the same call */
 /*if we use the get_token_from_stormpath then we should comment out the line below so that the token is stored */
